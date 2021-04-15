@@ -1,7 +1,7 @@
-from flask import Flask, render_template, url_for
-
+from flask import Flask, render_template, url_for, redirect
+from forms import RegisterationForm, LoginForm;
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'f38562b513d05c4a9e68ba32d2f7ca69'
 posts = [
     {
         'author': 'Corey Schafer',
@@ -25,6 +25,16 @@ def hello():
 def m():
     return render_template('about.html')
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterationForm()
+    if form.validate_on_submit():
+        return redirect(url_for('hello'))
+    return render_template('signup.html', title="Register", form = form)
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html', title="login", form = form)
  
 if __name__ == '__main__':
     app.run(debug=True)
