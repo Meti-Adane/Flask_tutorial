@@ -18,6 +18,10 @@
                                 {{form.password.label(class="form-control-label")}}
                                 {{form.password(class="form-control form-control-lg")}}
                             </div>
+                            <div class="form-check">
+                                {{form.remember.label(class="form-check-label")}}
+                                {{form.remember(class="form-check-input")}}
+                            </div>
                         
                         </fieldset>
                 </div>
@@ -27,7 +31,12 @@
                 <div class="form-group">
                     {{form.submit(class="btn btn-outline-info")}}
                 </div>
-    
+    <small class="text-muted ml-2">
+        <a href="#">Forgot password ?</a>
+    </small>
+    <div class="border-bottom">
+        <small class="text-muted">Dont have an account? <a href="{{url_for('register')}}">Sign up now</a></small>
+    </div>
             </fieldset>
         </form>
     </div>

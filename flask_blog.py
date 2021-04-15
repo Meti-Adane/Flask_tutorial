@@ -22,7 +22,7 @@ posts = [
 def hello():
     return render_template('home.html', title="Meti",posts=posts)
 @app.route("/about")
-def m():
+def about():
     return render_template('about.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -31,12 +31,20 @@ def register():
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}', 'success')
         return redirect(url_for('hello'))
-    if form.is_submitted() and not form.validate_on_submit():
-        flash(f'Invalid input', 'danger')
+    # if form.is_submitted() and not form.validate_on_submit():
+    #     flash(f'Invalid input', 'danger')
     return render_template('signup.html', title="Register", form = form)
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    
+    if form.validate_on_submit():
+        if form.email.data == 'hello@com.dot' and form.password.data == '12344':
+            print("hello")
+            flash("Loggged in", "success")
+            return redirect (url_for('hello'))
+        else:
+            flash("login failed check your username and password", 'danger')
     return render_template('login.html', title="login", form = form)
  
 if __name__ == '__main__':
