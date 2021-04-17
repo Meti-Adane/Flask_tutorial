@@ -2,8 +2,7 @@ from flask import render_template, url_for, redirect, flash
 from flask_blog.forms import RegisterationForm, LoginForm;
 from flask_blog.modles import User, Post
 from flask_blog import app, bcrypt, db 
-from flask_login import login_user, current_user
-
+from flask_login import login_user, current_user, logout_user
 
 posts = [
     {
@@ -37,7 +36,7 @@ def register():
         user = User(username= form.username.data, email= form.email.data, password = hashed)
         db.session.add(user)
         db.session.commit()
-        flash(f'Account created for {form.username.data}', 'success')
+        flash(f'Account successfully created you can now login into your account', 'success')
         return redirect(url_for('login'))
     # if form.is_submitted() and not form.validate_on_submit():
     #     flash(f'Invalid input', 'danger')
@@ -55,3 +54,7 @@ def login():
         flash("login failed check your email and password", 'danger')
     return render_template('login.html', title="login", form = form)
  
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('hello'))

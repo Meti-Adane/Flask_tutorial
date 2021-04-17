@@ -12,3 +12,4 @@ lib
 lib64
 
 flask_blog/__pycache__/*
+flask_blog/__pycache__/*
